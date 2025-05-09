@@ -111,6 +111,21 @@
 		{
 			"include": [".storybook/main.@(js|cjs|mjs|ts)"],
 			"linter": { "rules": {} }
+		},
+		{
+			"include": [
+				"**/*.test.{ts,tsx}",
+				"**/*.spec.{ts,tsx}",
+				"**/test/**/*.{ts,tsx}"
+			],
+			"linter": {
+				"rules": {
+					"correctness": {
+						"noUndeclaredVariables": "off",
+						"noUnusedVariables": "off"
+					}
+				}
+			}
 		}
 	]
 }

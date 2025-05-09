@@ -20,7 +20,7 @@ export function PostDetailView(props: PostDetailViewProps) {
 											src={
 												post?.coverImage.url || 'https://placehold.co/600x400'
 											}
-											alt={post?.coverImage.description || ''}
+											alt={post?.coverImage.description || 'sem descrição'}
 											width={800}
 											height={400}
 											className="w-full h-auto object-cover"
