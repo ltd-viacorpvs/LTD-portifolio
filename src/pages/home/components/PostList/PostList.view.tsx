@@ -37,30 +37,7 @@ export function PostListView(props: PostListViewProps) {
 						readTime={post.readTime}
 					/>
 				))}
-				{posts?.map((post) => (
-					<BlogPostCardView
-						key={post.id}
-						category={post.category}
-						title={post.title}
-						excerpt={post.excerpt}
-						slug={post.slug}
-						id={post.id}
-						coverImage={post.coverImage}
-						readTime={post.readTime}
-					/>
-				))}
-				{posts?.map((post) => (
-					<BlogPostCardView
-						key={post.id}
-						category={post.category}
-						title={post.title}
-						excerpt={post.excerpt}
-						slug={post.slug}
-						id={post.id}
-						coverImage={post.coverImage}
-						readTime={post.readTime}
-					/>
-				))}
+
 				{isLoading &&
 					Array.from({ length: 3 }, (_, index) => index + 1).map((item) => (
 						<BlogPostCardSkeleton key={item} />

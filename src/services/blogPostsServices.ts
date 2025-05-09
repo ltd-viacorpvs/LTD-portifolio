@@ -36,8 +36,6 @@ export const blogPostsServices: IBlogPostsServices = {
 }
 
 export function adaptBlogPostFromContentful(item: any): IBlogPost {
-	console.log('item url', item.fields.coverImage?.fields?.file?.url)
-
 	return {
 		id: item.sys.id,
 		title: item.fields.title,
