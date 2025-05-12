@@ -39,7 +39,7 @@ export const Footer = () => {
 						</div>
 					</div>
 
-					<div className="flex-1 flex flex-col md:flex-row justify- gap-8">
+					<div className="flex-1 flex flex-col md:flex-row justify-evenly gap-8">
 						<nav className="flex flex-col gap-2">
 							<h3 className="text-white font-semibold mb-2">Navegação</h3>
 							<ul className="flex flex-col gap-2">
