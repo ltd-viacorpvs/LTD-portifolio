@@ -1,5 +1,7 @@
 import { {{pascalCase name}}Model } from './{{kebabCase name}}.model'
 
-export type {{pascalCase name}}ModelReturn = ReturnType<typeof {{pascalCase name}}Model>
+export type use{{pascalCase name}}Props = {
+    /** Add props here */
+}
 
-export type {{pascalCase name}}ViewProps = {{pascalCase name}}ModelReturn
+export type {{pascalCase name}}ViewProps = ReturnType<typeof {{pascalCase name}}Model>

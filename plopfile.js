@@ -24,6 +24,20 @@ export default function (plop) {
 				type: 'input',
 				name: 'path',
 				message: 'Informe o path do componente (ex: ui/button):',
+				when: (answers) => answers.componentType !== 'pageComponent',
+			},
+			{
+				type: 'input',
+				name: 'pagePath',
+				message:
+					'Informe o path da página onde o componente será adicionado (ex: home, post/detail):',
+				when: (answers) => answers.componentType === 'pageComponent',
+			},
+			{
+				type: 'input',
+				name: 'componentName',
+				message: 'Informe o nome do componente:',
+				when: (answers) => answers.componentType === 'pageComponent',
 			},
 			{
 				type: 'input',
@@ -54,31 +68,42 @@ export default function (plop) {
 			},
 		],
 		actions: function (data) {
-			if (!data?.path) return []
+			// Configuração específica para componente de página
+			if (data.componentType === 'pageComponent') {
+				// Remove espaços e formata os nomes
+				const cleanPagePath = data.pagePath.replace(/\s+/g, '-')
+				const cleanComponentName = data.componentName.replace(/\s+/g, '-')
 
-			const cleanPath = data.path.replace(/\s+/g, '-')
-			const name = path.basename(cleanPath)
-			data.name = name
-			data.folder = cleanPath
-			data.routePath = data.routePath || '*' // Default para NotFound
+				// Define o caminho completo
+				data.folder = `${cleanPagePath}/components/${cleanComponentName}`
+				data.name = cleanComponentName
 
-			let baseDir = 'src/components/'
+				// Define o diretório base
+				data.baseDir = 'src/pages/'
+			} else {
+				// Fluxo original para componentes normais e páginas
+				if (!data?.path) return []
 
-			switch (data.componentType) {
-				case 'component':
-					baseDir = 'src/components/'
-					break
-				case 'pageComponent':
-					baseDir = 'src/pages/'
-					data.folder = `components/${cleanPath}`
-					break
-				case 'page':
-					baseDir = 'src/pages/'
-					data.isPage = true
-					break
+				const cleanPath = data.path.replace(/\s+/g, '-')
+				const name = path.basename(cleanPath)
+				data.name = name
+				data.folder = cleanPath
+				data.routePath = data.routePath || '*' // Default para NotFound
+
+				let baseDir = 'src/components/'
+
+				switch (data.componentType) {
+					case 'component':
+						baseDir = 'src/components/'
+						break
+					case 'page':
+						baseDir = 'src/pages/'
+						data.isPage = true
+						break
+				}
+
+				data.baseDir = baseDir
 			}
-
-			data.baseDir = baseDir
 
 			const actions = []
 
@@ -101,7 +126,7 @@ export default function (plop) {
 			if (data.files.includes('model')) {
 				actions.push({
 					type: 'add',
-					path: '{{baseDir}}{{folder}}/{{pascalCase name}}.model.tsx',
+					path: '{{baseDir}}{{folder}}/{{pascalCase name}}.model.ts',
 					templateFile: 'plop/templates/mvvm/model.hbs',
 				})
 			}
