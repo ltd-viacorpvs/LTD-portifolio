@@ -14,7 +14,6 @@ export function ProjetosView(props: ProjetosViewProps) {
 	return (
 		<div className="bg-gradient-to-br from-gray-50 to-gray-100 py-20">
 			<div className="container mx-auto px-6 md:px-10 lg:px-16">
-				{/* Cabeçalho */}
 				<div className="relative mb-16">
 					<Link
 						to="/"
@@ -48,7 +47,6 @@ export function ProjetosView(props: ProjetosViewProps) {
 					</div>
 				</div> */}
 
-				{/* Grid de projetos */}
 				<div className="grid grid-cols-1 gap-8  lg:grid-cols-3 xl:gap-10">
 					{projects.map((project) => (
 						<ProjectCard

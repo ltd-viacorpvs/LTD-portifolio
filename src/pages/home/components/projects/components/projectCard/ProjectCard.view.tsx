@@ -6,14 +6,13 @@ import {
 	Github,
 	Star,
 } from 'lucide-react'
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import type { ProjectCardViewProps } from './types'
 
-export function ProjectCardView(props: ProjectCardViewProps) {
-	const { project, isHighlighted } = props
+//TODO: adicionar o campo client na interface IProject
 
-	const [useVerticalLayout] = useState(undefined)
+export function ProjectCardView(props: ProjectCardViewProps) {
+	const { project, isHighlighted, useVerticalLayout } = props
 
 	return (
 		<div
