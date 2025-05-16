@@ -1,4 +1,4 @@
-import type { IBlogPostDetail } from '@/services/types'
+import type { IBlogPostDetail } from '@/services/blogPost/types'
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 import { PostDetailView } from './PostDetail.view'

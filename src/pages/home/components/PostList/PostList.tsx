@@ -1,4 +1,4 @@
-import { blogPostsServices } from '@/services/blogPostsServices'
+import { blogPostsServices } from '@/services/blogPost/blogPostsServices'
 import { usePostListModel } from './PostList.model'
 import { PostListView } from './PostList.view'
 
