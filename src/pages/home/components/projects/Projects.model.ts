@@ -16,8 +16,6 @@ export function useProjectsModel({ projectsServices }: useProjectsProps) {
 		retry: 1,
 	})
 
-	console.log('projects', projects)
-
 	return {
 		projects,
 		isLoading,

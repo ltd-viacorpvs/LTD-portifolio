@@ -10,8 +10,6 @@ export const projectsServices: IProjectsServices = {
 			include: 2,
 		})
 
-		console.log(JSON.stringify(response, null, 2))
-
 		return adaptProjectsFromContentful(response)
 	},
 
