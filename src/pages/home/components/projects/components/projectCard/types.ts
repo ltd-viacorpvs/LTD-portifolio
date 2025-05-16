@@ -1,19 +1,8 @@
+import type { IProject } from '@/services/projects/types'
 import type { useProjectCardModel } from './ProjectCard.model'
 
-export interface Project {
-	id: string
-	title: string
-	description: string
-	image: string
-	date?: string
-	duration?: string
-	demoUrl?: string
-	githubUrl?: string
-	client?: string
-}
-
 export interface ProjectCardProps {
-	project: Project
+	project: IProject
 	isSingleProject: boolean
 	isHighlighted?: boolean
 }

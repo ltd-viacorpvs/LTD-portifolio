@@ -1,10 +1,11 @@
 import { ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { ProjectCard } from './components/projectCard/ProjectCard'
+import { ProjectCardSkeleton } from './components/projectCard/ProjectCardSkeleton'
 import type { ProjectsViewProps } from './types'
 
 export function ProjectsView(props: ProjectsViewProps) {
-	const { projects } = props
+	const { projects, isLoading } = props
 	return (
 		<div className="bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 py-20">
 			<div className="container mx-auto px-6 md:px-10 lg:px-16">
@@ -25,6 +26,10 @@ export function ProjectsView(props: ProjectsViewProps) {
 							isSingleProject={false}
 						/>
 					))}
+					{isLoading &&
+						Array.from({ length: 4 }, (_, index) => index + 1).map((item) => (
+							<ProjectCardSkeleton key={item} />
+						))}
 				</div>
 
 				<div className="mt-16 flex justify-center">

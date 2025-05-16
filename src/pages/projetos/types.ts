@@ -1,8 +1,8 @@
+import type { IProjectsServices } from '@/services/projects/IProjectsServices'
 import type { useProjetosModel } from './Projetos.model'
 
 export type useProjetosProps = {
-	/** Add props here */
-	a?: string
+	projectsServices: IProjectsServices
 }
 
 export type ProjetosViewProps = ReturnType<typeof useProjetosModel>

@@ -1,3 +1,5 @@
+import { RichTextRenderer } from '@/components/RichTextRenderer/RichTextRenderer'
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import {
 	ArrowLeft,
 	Calendar,
@@ -7,19 +9,34 @@ import {
 	Github,
 	Globe,
 } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
+import { ProjectDetailsSkeleton } from './ProjectDetailsSkeleton'
 import type { ProjectDetailsViewProps } from './types'
 
 export function ProjectDetailsView(props: ProjectDetailsViewProps) {
-	const { project } = props
+	const { project, isLoading, imageLoaded, setImageLoaded } = props
+
+	if (isLoading) {
+		return <ProjectDetailsSkeleton />
+	}
+
+	if (!project) {
+		return <Navigate to={'not-found'} replace />
+	}
+
 	return (
 		<div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
-			{/* Hero section with project image */}
 			<div className="relative h-[40vh] w-full md:h-[50vh]">
 				<img
-					src={project.image || '/placeholder.svg'}
+					src={`${project.image?.url}?w=1200&q=80`}
 					alt={project.title}
-					className="h-full w-full object-cover absolute inset-0"
+					className={`h-full w-full object-cover absolute inset-0 transition-opacity duration-500 ${
+						imageLoaded ? 'opacity-100' : 'opacity-0'
+					}`}
+					onLoad={() => setImageLoaded(true)}
+					loading="eager"
+					decoding="async"
+					fetchPriority="high"
 				/>
 				<div className="absolute inset-0 bg-black/40"></div>
 				<div className="absolute bottom-0 left-0 w-full p-8">
@@ -28,13 +45,12 @@ export function ProjectDetailsView(props: ProjectDetailsViewProps) {
 							{project.title}
 						</h1>
 						<p className="mt-2 max-w-2xl text-xl text-white/90">
-							{project.description}
+							{project.excerpt}
 						</p>
 					</div>
 				</div>
 			</div>
 
-			{/* Project content */}
 			<div className="container mx-auto px-4 py-12">
 				<div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row">
 					<Link
@@ -45,9 +61,9 @@ export function ProjectDetailsView(props: ProjectDetailsViewProps) {
 					</Link>
 
 					<div className="flex flex-wrap gap-3">
-						{project.website && (
+						{project.siteUrl && (
 							<a
-								href={project.website}
+								href={project.siteUrl}
 								target="_blank"
 								rel="noopener noreferrer"
 								className="flex items-center gap-2 rounded-md bg-teal-600 px-6 py-3 font-medium text-white transition-all hover:bg-teal-700"
@@ -56,9 +72,9 @@ export function ProjectDetailsView(props: ProjectDetailsViewProps) {
 							</a>
 						)}
 
-						{project.github && (
+						{project.githubUrl && (
 							<a
-								href={project.github}
+								href={project.githubUrl}
 								target="_blank"
 								rel="noopener noreferrer"
 								className="flex items-center gap-2 rounded-md bg-gray-800 px-6 py-3 font-medium text-white transition-all hover:bg-gray-900"
@@ -70,34 +86,17 @@ export function ProjectDetailsView(props: ProjectDetailsViewProps) {
 				</div>
 
 				<div className="grid gap-8 lg:grid-cols-3">
-					{/* Main content */}
 					<div className="lg:col-span-2">
 						<div className="rounded-xl bg-white p-8 shadow-lg">
 							<h2 className="mb-6 text-2xl font-bold text-gray-900">
 								Visão Geral do Projeto
 							</h2>
-							<p className="mb-8 leading-relaxed text-gray-700">
-								{project.fullDescription}
-							</p>
-
-							<h3 className="mb-4 text-xl font-bold text-gray-900">
-								Recursos Principais
-							</h3>
-							<ul className="mb-8 space-y-2">
-								{project.features &&
-									project.features.map((feature, index) => (
-										<li
-											key={index}
-											className="flex items-start gap-2 text-gray-700"
-										>
-											<span className="mt-1 text-teal-600">•</span> {feature}
-										</li>
-									))}
-							</ul>
+							<div className="mb-8 leading-relaxed text-gray-700 project-rich-text">
+								<RichTextRenderer content={project.projectDetails} />
+							</div>
 						</div>
 					</div>
 
-					{/* Sidebar */}
 					<div className="space-y-6">
 						<div className="rounded-xl bg-white p-6 shadow-lg">
 							<h3 className="mb-4 text-xl font-bold text-gray-900">
@@ -109,7 +108,9 @@ export function ProjectDetailsView(props: ProjectDetailsViewProps) {
 									<Calendar className="h-5 w-5 text-teal-600" />
 									<div>
 										<p className="text-sm text-gray-500">Data de Conclusão</p>
-										<p className="font-medium text-gray-900">{project.date}</p>
+										<p className="font-medium text-gray-900">
+											{project.formattedDate || project.completionDate}
+										</p>
 									</div>
 								</div>
 
@@ -118,24 +119,14 @@ export function ProjectDetailsView(props: ProjectDetailsViewProps) {
 									<div>
 										<p className="text-sm text-gray-500">Duração</p>
 										<p className="font-medium text-gray-900">
-											{project.duration}
-										</p>
-									</div>
-								</div>
-
-								<div className="flex items-center gap-3">
-									<ExternalLink className="h-5 w-5 text-teal-600" />
-									<div>
-										<p className="text-sm text-gray-500">Cliente</p>
-										<p className="font-medium text-gray-900">
-											{project.client}
+											{project.projectDuration}
 										</p>
 									</div>
 								</div>
 							</div>
 						</div>
 
-						{project.technologies && (
+						{project.technologies && project.technologies.length > 0 && (
 							<div className="rounded-xl bg-white p-6 shadow-lg">
 								<div className="mb-4 flex items-center gap-3">
 									<Code className="h-5 w-5 text-teal-600" />

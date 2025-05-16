@@ -18,10 +18,10 @@ export function ProjectCardView(props: ProjectCardViewProps) {
 	return (
 		<div
 			className={`h-fit group relative overflow-hidden rounded-xl border border-gray-100 bg-white transition-all duration-300 hover:border-gray-200 hover:shadow-xl ${
-				isHighlighted ? 'ring-2 ring-teal-400' : ''
+				project.isHighlighted || isHighlighted ? 'ring-2 ring-teal-400' : ''
 			}`}
 		>
-			{isHighlighted && (
+			{(project.isHighlighted || isHighlighted) && (
 				<div className="absolute top-0 right-0 z-20 p-2">
 					<div className="bg-teal-500 text-white p-1 rounded-full shadow-md">
 						<Star size={16} fill="white" />
@@ -47,9 +47,9 @@ export function ProjectCardView(props: ProjectCardViewProps) {
 					}`}
 				>
 					<img
-						src={'./ofice-shablau.jpg'}
+						src={project.image?.url || './placeholder.jpg'}
 						alt={project.title}
-						className="h-full w-full object-cover"
+						className="h-full w-full object-cover "
 					/>
 					<div
 						className={`absolute inset-0 ${
@@ -70,11 +70,12 @@ export function ProjectCardView(props: ProjectCardViewProps) {
 					<div>
 						<div className="mb-1 flex flex-wrap items-center justify-between gap-2">
 							<span className="text-xs font-medium text-gray-500">
-								{project.client}
+								{/* O campo client não existe na interface, poderia ser extraído do título ou outro campo */}
+								Projeto
 							</span>
 							<span className="flex items-center gap-1 text-xs font-medium text-gray-500">
 								<Calendar size={12} />
-								{project.date}
+								{project.formattedDate || project.completionDate}
 							</span>
 						</div>
 
@@ -82,29 +83,29 @@ export function ProjectCardView(props: ProjectCardViewProps) {
 							{project.title}
 						</h3>
 						<p className="mb-4 text-sm text-gray-600 line-clamp-3">
-							{project.description}
+							{project.excerpt}
 						</p>
 
 						<div className="mb-4 flex items-center gap-4">
 							<div className="flex items-center gap-1 text-xs text-gray-500">
 								<Clock size={14} />
-								<span>{project.duration}</span>
+								<span>{project.projectDuration}</span>
 							</div>
 						</div>
 					</div>
 
 					<div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
 						<Link
-							to={`/projetos/${project.id}`}
+							to={`/projetos/${project.slug}`}
 							className="flex items-center gap-1 rounded-md bg-teal-600 px-4 py-2 text-xs font-medium text-white transition-colors hover:bg-teal-700"
 						>
-							View project <ArrowUpRight size={14} />
+							Ver projeto <ArrowUpRight size={14} />
 						</Link>
 
 						<div className="flex flex-wrap gap-2">
-							{project.demoUrl && (
+							{project.siteUrl && (
 								<a
-									href={project.demoUrl}
+									href={project.siteUrl}
 									target="_blank"
 									rel="noopener noreferrer"
 									className="flex items-center gap-1 rounded-md bg-gray-100 px-3 py-2 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-200"

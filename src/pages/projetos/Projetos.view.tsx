@@ -1,10 +1,15 @@
 import { ArrowLeft, Search } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { ProjectCard } from '../home/components/projects/components/projectCard'
+import { ProjetosSkeleton } from './ProjetosSkeleton'
 import type { ProjetosViewProps } from './types'
 
 export function ProjetosView(props: ProjetosViewProps) {
-	const { projects } = props
+	const { projects, isLoading } = props
+
+	if (isLoading) {
+		return <ProjetosSkeleton />
+	}
 
 	return (
 		<div className="bg-gradient-to-br from-gray-50 to-gray-100 py-20">
@@ -29,7 +34,7 @@ export function ProjetosView(props: ProjetosViewProps) {
 					</p>
 				</div>
 
-				<div className="mb-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+				{/* <div className="mb-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
 					<div className="relative w-full md:w-64">
 						<input
 							type="text"
@@ -41,15 +46,15 @@ export function ProjetosView(props: ProjetosViewProps) {
 							className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
 						/>
 					</div>
-				</div>
+				</div> */}
 
 				{/* Grid de projetos */}
-				<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:gap-10">
+				<div className="grid grid-cols-1 gap-8  lg:grid-cols-3 xl:gap-10">
 					{projects.map((project) => (
 						<ProjectCard
 							key={project.id}
 							project={project}
-							isHighlighted={project.featured}
+							isHighlighted={project.isHighlighted}
 							isSingleProject={false}
 						/>
 					))}

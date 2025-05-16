@@ -1,4 +1,4 @@
-import type { IBlogPost } from '@/services/types'
+import type { IBlogPost } from '@/services/blogPost/types'
 import { useQuery } from '@tanstack/react-query'
 import type { UseBlogModelProps } from './types'
 
