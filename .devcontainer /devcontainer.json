@@ -1,0 +1,28 @@
+{
+    "image": "mcr.microsoft.com/devcontainers/universal:2",
+    "hostRequirements": {
+        "cpus": 4
+    },
+    "waitFor": "onCreateCommand",
+    "updateContentCommand": "npm install -g pnpm && pnpm install",
+    "postCreateCommand": "",
+    "postAttachCommand": {
+        "server": "pnpm run dev"
+    },
+    "customizations": {
+        "codespaces": {
+            "openFiles": [
+                "src/main.tsx"
+            ]
+        }
+    },
+    "portsAttributes": {
+        "5173": {
+            "label": "Application",
+            "onAutoForward": "openPreview"
+        }
+    },
+    "forwardPorts": [
+        5173
+    ]
+}

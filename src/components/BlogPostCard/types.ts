@@ -1,4 +1,4 @@
-import type { IBlogPost } from '@/services/types'
+import type { IBlogPost } from '@/services/blogPost/types'
 
 export type BlogPostCardProps = {
 	id: string

@@ -1,4 +1,4 @@
-import { blogPostsServices } from '@/services/blogPostsServices'
+import { blogPostsServices } from '@/services/blogPost/blogPostsServices'
 import { useParams } from 'react-router-dom'
 import { usePostDetailModel } from './PostDetail.model'
 import { PostDetailView } from './PostDetail.view'
