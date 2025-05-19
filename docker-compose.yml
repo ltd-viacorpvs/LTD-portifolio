@@ -1,0 +1,16 @@
+services:
+  frontend:
+    container_name: ${FRONTEND_CONTAINER_NAME:-frontend_portifolio_ltd} 
+    build:
+      context: .
+      dockerfile: ${FRONTEND_DOCKERFILE:-Dockerfile.dev}
+    ports:
+      - "${FRONTEND_PORT:-5173}:${FRONTEND_INTERNAL_PORT:-5173}"
+    restart: always
+    volumes:
+      - .:/app 
+      - /app/node_modules
+    
+      
+
+
