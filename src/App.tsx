@@ -4,6 +4,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { persistQueryClient } from '@tanstack/react-query-persist-client'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { RouterProvider } from 'react-router-dom'
+import { Toaster } from 'sonner'
 import { queryClient } from './lib/reactQuery'
 import { router } from './router'
 
@@ -25,6 +26,7 @@ const App = () => {
 				<Helmet titleTemplate="%s | title title" />
 				<RouterProvider router={router} />
 			</HelmetProvider>
+			<Toaster richColors />
 			<ReactQueryDevtools initialIsOpen={false} />
 		</QueryClientProvider>
 	)

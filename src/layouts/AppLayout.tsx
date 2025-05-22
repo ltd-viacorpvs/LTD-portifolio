@@ -1,4 +1,5 @@
 import { Footer } from '@/components/footer'
+import { useAnalytics } from '@/hooks/useAnalytics/useAnalytics'
 import { Menu, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
@@ -6,6 +7,8 @@ import { Outlet, useLocation } from 'react-router-dom'
 export const AppLayout = () => {
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 	const { pathname } = useLocation()
+
+	useAnalytics()
 
 	const toggleSidebar = () => {
 		setIsSidebarOpen(!isSidebarOpen)
