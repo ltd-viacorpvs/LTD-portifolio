@@ -1,6 +1,6 @@
 export function About() {
 	return (
-		<section className="bg-white py-8 md:py-16 lg:py-24">
+		<section id="sobre" className="bg-white py-8 md:py-16 lg:py-24">
 			<div className="container mx-auto px-4 md:px-8 lg:px-16 xl:px-24">
 				<div className="flex flex-col lg:flex-row gap-6 md:gap-10 lg:gap-16">
 					<div className="flex flex-col gap-6 md:gap-8 flex-1">

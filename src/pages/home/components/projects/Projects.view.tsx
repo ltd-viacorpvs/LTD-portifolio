@@ -7,7 +7,7 @@ import type { ProjectsViewProps } from './types'
 export function ProjectsView(props: ProjectsViewProps) {
 	const { projects, isLoading } = props
 	return (
-		<div className="bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 py-20">
+		<div id="projetos" className="bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 py-20">
 			<div className="container mx-auto px-6 md:px-10 lg:px-16">
 				<div className="relative mb-16">
 					<h1 className="text-4xl font-bold text-white">Projetos</h1>

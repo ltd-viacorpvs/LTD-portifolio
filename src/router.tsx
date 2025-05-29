@@ -33,6 +33,8 @@ const Contacts = React.lazy(async () => {
 	const module = await import('./pages/contacts')
 	return { default: module.Contacts }
 })
+const Login = React.lazy(() => import('./pages/login/login.tsx'))
+
 
 export const router = createBrowserRouter([
 	{
@@ -84,6 +86,14 @@ export const router = createBrowserRouter([
 				element: (
 					<Suspense fallback={<SpinnerLoading />}>
 						<Contacts />
+					</Suspense>
+				),
+			},
+			{
+				path: 'login',
+				element: (
+					<Suspense fallback={<SpinnerLoading />}>
+						<Login />
 					</Suspense>
 				),
 			},
