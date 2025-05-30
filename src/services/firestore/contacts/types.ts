@@ -1,7 +1,7 @@
 import { Timestamp } from 'firebase/firestore'
 
 export type ContactMessage = {
-	id?: string
+	id: string
 	firstName: string
 	lastName: string
 	email: string

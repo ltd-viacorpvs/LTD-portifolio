@@ -8,8 +8,8 @@ services:
       - "${FRONTEND_PORT:-5173}:${FRONTEND_INTERNAL_PORT:-5173}"
     restart: always
     volumes:
-      - .:/app 
-      - /app/node_modules
+      - .:/root/app 
+      - /root/app/node_modules
     
       
 

@@ -98,7 +98,7 @@ export const WhyJoinUs = () => {
 						className="h-16 md:h-20 object-contain opacity-80 hover:opacity-100 transition-opacity"
 					/>
 					<img
-						src="./ltd-logo.png"
+						src="./preview.png"
 						alt="LTD Logo"
 						className="h-16 md:h-20 object-contain opacity-80 hover:opacity-100 transition-opacity"
 					/>

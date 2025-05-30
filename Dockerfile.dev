@@ -2,7 +2,7 @@ FROM node:lts-alpine3.21
 
 RUN apk add --no-cache vim openssl zsh git curl
 
-WORKDIR /app
+WORKDIR /root/app
 
 RUN npm install -g pnpm
 

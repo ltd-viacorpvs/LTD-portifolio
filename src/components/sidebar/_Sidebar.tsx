@@ -1,5 +1,5 @@
 import React from 'react';
-import { X } from 'lucide-react'; // Ícone de fechar
+import { X } from 'lucide-react';
 
 interface SidebarProps {
 	isSidebarOpen: boolean;
