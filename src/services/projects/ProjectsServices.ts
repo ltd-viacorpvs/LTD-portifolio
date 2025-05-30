@@ -40,24 +40,24 @@ export const projectsServices: IProjectsServices = {
 }
 
 export function adaptProjectFromContentful(item: any): IProject {
-	// Garante que item.fields existe
+
 	if (!item?.fields) {
 		throw new Error('Formato de dados inválido: campos não encontrados')
 	}
 
 	const { fields, sys } = item
 
-	// Formatar a data de conclusão (opcional)
+
 	const rawDate = fields.completionDate ? new Date(fields.completionDate) : null
 	const formattedDate = rawDate
 		? rawDate.toLocaleDateString('pt-BR', {
-				day: 'numeric',
-				month: 'long',
-				year: 'numeric',
-			})
+			day: 'numeric',
+			month: 'long',
+			year: 'numeric',
+		})
 		: undefined
 
-	// Extrair dados da imagem com segurança
+
 	const imageUrl = fields.thumb?.fields?.file?.url
 		? `https:${fields.thumb.fields.file.url}`
 		: 'https://placehold.com/600x400'
@@ -66,12 +66,12 @@ export function adaptProjectFromContentful(item: any): IProject {
 	const imageHeight = fields.thumb?.fields?.file?.details?.image?.height || 0
 
 	return {
-		// Identificação
+
 		id: sys.id,
 		title: fields.title || '',
 		slug: fields.slug || '',
 
-		// Descrições
+
 		excerpt: fields.excerpt || '',
 		projectDetails: fields.projectDetails || {
 			nodeType: 'document',
@@ -79,22 +79,22 @@ export function adaptProjectFromContentful(item: any): IProject {
 			content: [],
 		},
 
-		// Metadados
+
 		completionDate: fields.completionDate || '',
 		formattedDate,
 		projectDuration: fields.projectDuration || '',
 
-		// Links externos
+
 		siteUrl: fields.siteUrl || undefined,
 		githubUrl: fields.githubUrl || undefined,
 
-		// Classificação
+
 		isHighlighted: fields.isHighlighted || false,
 
-		// Tecnologias
+
 		technologies: fields.technologies || [],
 
-		// Imagem
+
 		image: {
 			url: imageUrl,
 			title: fields.thumb?.fields?.title || '',

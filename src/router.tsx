@@ -1,8 +1,17 @@
 import React, { Suspense } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
+import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute.tsx'
 import { SpinnerLoading } from './components/SpinnerLoading/SpinnerLoading'
 import { NotFound } from './components/notFound/notFound'
+import { AdminLayout } from './layouts/AdminLayout/AdminLayout'
 import { AppLayout } from './layouts/AppLayout'
+import { ContactsViewSkeleton } from './pages/admin/contacts/ContactsViewSkeleton.tsx'
+import { BlogSkeleton } from './pages/blog/BlogSkeleton.tsx'
+import { PostDetailSkeleton } from './pages/post/PostDetailSkeleton.tsx'
+import { ProjetosSkeleton } from './pages/projetos/ProjetosSkeleton.tsx'
+import { ProjectDetailsSkeleton } from './pages/projectDetails/ProjectDetailsSkeleton.tsx'
+import HomeSkeleton from './pages/home/HomeSkeleton.tsx'
+
 
 const Home = React.lazy(async () => {
 	const module = await import('./pages/home/Home')
@@ -34,7 +43,20 @@ const Contacts = React.lazy(async () => {
 	return { default: module.Contacts }
 })
 
+// Auth Pages
+const Login =  React.lazy(async () => {
+	const module = await import('./pages/login/login.tsx')
+	return { default: module.login }
+})
+
+// Admin Pages
+const ContactsAdmin = React.lazy(async () => {
+	const module = await import('./pages/admin/contacts/Contacts.tsx')
+	return { default: module.Contacts }
+})
+
 export const router = createBrowserRouter([
+	
 	{
 		path: '/',
 		element: <AppLayout />,
@@ -42,7 +64,7 @@ export const router = createBrowserRouter([
 			{
 				path: '/',
 				element: (
-					<Suspense fallback={<SpinnerLoading />}>
+					<Suspense fallback={<HomeSkeleton />}>
 						<Home />
 					</Suspense>
 				),
@@ -50,7 +72,7 @@ export const router = createBrowserRouter([
 			{
 				path: '/blog',
 				element: (
-					<Suspense fallback={<SpinnerLoading />}>
+					<Suspense fallback={<BlogSkeleton/>}>
 						<Blog />
 					</Suspense>
 				),
@@ -58,7 +80,7 @@ export const router = createBrowserRouter([
 			{
 				path: '/blog/post/:slug',
 				element: (
-					<Suspense fallback={<SpinnerLoading />}>
+					<Suspense fallback={<PostDetailSkeleton/>}>
 						<PostDetail />
 					</Suspense>
 				),
@@ -66,7 +88,7 @@ export const router = createBrowserRouter([
 			{
 				path: 'projetos',
 				element: (
-					<Suspense fallback={<SpinnerLoading />}>
+					<Suspense fallback={<ProjetosSkeleton />}>
 						<Projetos />
 					</Suspense>
 				),
@@ -74,7 +96,7 @@ export const router = createBrowserRouter([
 			{
 				path: 'projetos/:slug',
 				element: (
-					<Suspense fallback={<SpinnerLoading />}>
+					<Suspense fallback={<ProjectDetailsSkeleton />}>
 						<ProjectDetails />
 					</Suspense>
 				),
@@ -87,14 +109,45 @@ export const router = createBrowserRouter([
 					</Suspense>
 				),
 			},
+		],
+	},
+
+	
+	{
+		path: '/login',
+		element: (
+			<Suspense fallback={<SpinnerLoading />}>
+				<Login />
+			</Suspense>
+		),
+	},
+
+	{
+		path: '/admin',
+		element: (
+			<ProtectedRoute>
+				<AdminLayout />
+			</ProtectedRoute>
+		),
+		children: [
 			{
-				path: '*',
+				path: '',
 				element: (
-					<Suspense fallback={<SpinnerLoading />}>
-						<NotFound />
+					<Suspense fallback={<ContactsViewSkeleton />}>
+						<ContactsAdmin />
 					</Suspense>
 				),
 			},
+		
 		],
+	},
+
+	{
+		path: '*',
+		element: (
+			<Suspense fallback={<SpinnerLoading />}>
+				<NotFound />
+			</Suspense>
+		),
 	},
 ])

@@ -8,7 +8,7 @@ export function PostListView(props: PostListViewProps) {
 	const { posts, isLoading } = props
 
 	return (
-		<section className="container xl:max-w-full mx-auto px-4 xl:px-24 py-8 pt-32">
+		<section id="blog" className="container xl:max-w-full mx-auto px-4 xl:px-24 py-8 pt-32">
 			<header className="text-center mb-12 flex justify-between items-center">
 				<h2 className="text-2xl font-bold mb-4">Blog</h2>
 				<Link to={'/blog'}>
